@@ -64,6 +64,10 @@ const RestApiManager = {
         { DoctorName, PatientName, Diagnosis, Medication, ConsultationFee, Time, FollowUp }, 'json')), callback
     )
   },
+
+  async createAppointment() {
+    
+  }
 }
 
 export default RestApiManager

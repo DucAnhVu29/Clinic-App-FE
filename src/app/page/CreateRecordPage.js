@@ -118,7 +118,7 @@ export default function LoginPage({ navigation }) {
 
         <View style={{ flexDirection: 'row' }}>
           <Text style={{ color: 'white', fontSize: 18, marginRight: 20 }}>{'Followup'}:</Text>
-          <CheckBox tintColors={{ true: 'white', false: 'black' }} value={followup} onValueChange={changeFollowup} />
+          {/* <CheckBox tintColors={{ true: 'white', false: 'black' }} value={followup} onValueChange={changeFollowup} /> */}
         </View>
         <Text style={{ color: 'red', marginTop: 15, fontSize: 18, width: '100%', textAlign: 'center' }}>{errMsg}</Text>
 
