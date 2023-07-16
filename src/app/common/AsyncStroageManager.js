@@ -1,23 +1,22 @@
-import AsyncStorage from '@react-native-community/async-storage';
-import uuid from 'react-native-uuid';
+import AsyncStorage from "@react-native-community/async-storage";
+import uuid from "react-native-uuid";
 
 class AsyncStorageManager {
-
   static getDeviceUUID() {
-    return AsyncStorage.getItem('UUID').then((value) => {
+    return AsyncStorage.getItem("UUID").then((value) => {
       if (value) {
-        return value
+        return value;
       } else {
-        const newUUID = uuid.v4()
-        AsyncStorageManager.save('UUID', newUUID)
-        return newUUID
+        const newUUID = uuid.v4();
+        AsyncStorageManager.save("UUID", newUUID);
+        return newUUID;
       }
     });
   }
 
   static get(key, defaultValue = undefined) {
     return AsyncStorage.getItem(key).then((value) => {
-      return value
+      return value;
     });
   }
 
@@ -27,6 +26,10 @@ class AsyncStorageManager {
 
   static delete(key) {
     return AsyncStorage.removeItem(key);
+  }
+
+  static clearAll(){
+    return AsyncStorage.clearAll();
   }
 }
 

@@ -65,8 +65,12 @@ const RestApiManager = {
     )
   },
 
-  async createAppointment() {
-    
+  async createAppointment(DoctorId, Time , callback) {
+     const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/appointment/create`, generateRequestDetails('PUT', token,
+        { DoctorId: DoctorId, Time: Time }, 'json')), callback
+    )
   }
 }
 

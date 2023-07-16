@@ -29,6 +29,7 @@ export default function LoginPage({ navigation }) {
           await AsyncStorageManager.save('email', res.resMsg.email)
           await AsyncStorageManager.save('phoneNo', res.resMsg.phoneNo)
           await AsyncStorageManager.save('token', res.resMsg.token)
+          await AsyncStorageManager.save('role', res.resMsg.role)
           navigation.navigate('AfterLoginMain')
         } else if (res.resCode === -1) {
           changeErrMsg('incorrect password')
