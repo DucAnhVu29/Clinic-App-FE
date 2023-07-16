@@ -88,7 +88,7 @@ export default function LoginPage({ navigation }) {
           borderBottomWidth: 1,
         }}
         onPress={() => {
-          navigation.navigate("DetailScreen", { recordList: recordList });
+          navigation.navigate("DetailScreen", { recordList: item });
         }}
       >
         <Text style={{ fontSize: 16 }}>

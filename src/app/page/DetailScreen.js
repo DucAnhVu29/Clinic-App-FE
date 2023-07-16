@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   View,
@@ -6,28 +6,40 @@ import {
   TouchableOpacity,
   Modal,
   TextInput,
+  ScrollView,
 } from "react-native";
 
 export default function DetailScreen({ route }) {
-  const { recordList } = route.params;
-  const [modalVisible, setModalVisible] = useState(false);
-  const [feedback, setFeedback] = useState("");
+  const recordList = route.params?.recordList;
+  const [modalVisible, setModalVisible] = React.useState(false);
+  const [feedback, setFeedback] = React.useState("");
 
   const submitFeedback = () => {
-    // Perform the feedback submission logic here
     console.log("Feedback submitted:", feedback);
     setModalVisible(false);
   };
 
   return (
-    <View style={styles.container}>
-      {recordList.map((record, index) => (
-        <View key={index}>
-          <Text style={styles.title}>{record.title}</Text>
-          <Text style={styles.description}>{record.description}</Text>
-          <Text style={styles.date}>{record.date}</Text>
-        </View>
-      ))}
+    <ScrollView style={styles.container}>
+      <View style={styles.recordContainer}>
+        <Text style={styles.label}>Doctor:</Text>
+        <Text style={styles.value}>{recordList.doctorName}</Text>
+
+        <Text style={styles.label}>Patient:</Text>
+        <Text style={styles.value}>{recordList.patientName}</Text>
+
+        <Text style={styles.label}>Diagnosis:</Text>
+        <Text style={styles.value}>{recordList.diagnosis}</Text>
+
+        <Text style={styles.label}>Medication:</Text>
+        <Text style={styles.value}>{recordList.medication}</Text>
+
+        <Text style={styles.label}>Fee:</Text>
+        <Text style={styles.value}>{recordList.consultationFee}</Text>
+
+        <Text style={styles.label}>Time:</Text>
+        <Text style={styles.value}>{recordList.time}</Text>
+      </View>
 
       <TouchableOpacity
         style={styles.addButton}
@@ -61,33 +73,37 @@ export default function DetailScreen({ route }) {
           </View>
         </View>
       </Modal>
-    </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: "#F5F5F5",
+  },
+  recordContainer: {
+    marginBottom: 20,
     paddingHorizontal: 20,
     paddingTop: 20,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "white",
+    borderRadius: 10,
+    marginTop: 50,
   },
-  title: {
-    fontSize: 24,
+  label: {
+    fontSize: 16,
     fontWeight: "bold",
-    marginBottom: 10,
+    marginBottom: 5,
+    color: "#333333",
   },
-  description: {
+  value: {
     fontSize: 16,
     marginBottom: 10,
-  },
-  date: {
-    fontSize: 14,
-    color: "#999999",
+    color: "#666666",
   },
   addButton: {
     position: "absolute",
-    bottom: 20,
+    bottom: 0,
     right: 20,
     width: 60,
     height: 60,
@@ -95,6 +111,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#0066FF",
     alignItems: "center",
     justifyContent: "center",
+    elevation: 5,
   },
   plusSign: {
     fontSize: 30,
@@ -117,6 +134,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#333333",
   },
   feedbackInput: {
     borderWidth: 1,
@@ -125,6 +143,9 @@ const styles = StyleSheet.create({
     height: 100,
     paddingHorizontal: 10,
     marginBottom: 10,
+    textAlignVertical: "top",
+    fontSize: 16,
+    color: "#333333",
   },
   submitButton: {
     backgroundColor: "#0066FF",
