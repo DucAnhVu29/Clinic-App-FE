@@ -95,12 +95,24 @@ const RestApiManager = {
     )
   },
 
-  async getConsultationForDoctor(callback) {
+  // async getConsultationForDoctor(callback) {
+  //   const token = await AsyncStorageManager.get('token')
+  //   handleRestApiResoponse(
+  //     fetch(`${config.apiEndpoint}/appointment/record`, generateRequestDetails('GET', token, 'json')), callback
+  //   )
+  // },
+
+  
+
+  //blog
+
+
+  async getAllBlog(callback) {
     const token = await AsyncStorageManager.get('token')
     handleRestApiResoponse(
-      fetch(`${config.apiEndpoint}/appointment/record`, generateRequestDetails('GET', token, 'json')), callback
+      fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('GET', token, 'json')), callback
     )
-  },
+  }
 
 }
 

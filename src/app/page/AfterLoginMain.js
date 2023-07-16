@@ -8,6 +8,7 @@ import ConsultationListingPage from "./ConsultationListingPage";
 import BookingPage from "./BookingPage";
 import AsyncStorageManager from "../common/AsyncStroageManager";
 import { AppointmentPage } from "./AppointmentPage";
+import { BlogPage } from "./BlogPage";
 
 export default function AfterLoginMainStack() {
   const ClinicStack = createBottomTabNavigator();
@@ -46,9 +47,9 @@ export default function AfterLoginMainStack() {
             ),
           })}
         /> */}
-        {/* <ClinicStack.Screen
-          name="CreateRecordPage"
-          component={CreateRecordPage}
+        <ClinicStack.Screen
+          name="BlogPage"
+          component={BlogPage}
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
               <Text style={{ color: focused ? "blue" : "black" }}>Create</Text>
@@ -65,7 +66,7 @@ export default function AfterLoginMainStack() {
               />
             ),
           })}
-        /> */}
+        />
         <ClinicStack.Screen
           name="AppointmentPage"
           component={AppointmentPage}
@@ -230,12 +231,12 @@ export default function AfterLoginMainStack() {
             ),
           })}
         /> */}
-        {/* <ClinicStack.Screen
-          name="BookingPage"
-          component={BookingPage}
+        <ClinicStack.Screen
+          name="BlogPage"
+          component={BlogPage}
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
-              <Text style={{ color: focused ? "blue" : "black" }}>Booking</Text>
+              <Text style={{ color: focused ? "blue" : "black" }}>Blog</Text>
             ),
             tabBarIcon: ({ focused }) => (
               <Image
@@ -249,7 +250,7 @@ export default function AfterLoginMainStack() {
               />
             ),
           })}
-        /> */}
+        />
         <ClinicStack.Screen
           name="AccountPage"
           component={AccountPage}
