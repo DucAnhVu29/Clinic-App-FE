@@ -71,7 +71,37 @@ const RestApiManager = {
       fetch(`${config.apiEndpoint}/appointment/create`, generateRequestDetails('PUT', token,
         { DoctorId: DoctorId, Time: Time }, 'json')), callback
     )
-  }
+  },
+
+  async cancelAppointment(Id , callback) {
+    const token = await AsyncStorageManager.get('token')
+   handleRestApiResoponse(
+     fetch(`${config.apiEndpoint}/appointment/cancel`, generateRequestDetails('PUT', token,
+       { Id: Id}, 'json')), callback
+   )
+ },
+
+  async getAppointmentListbyDoctor(callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/appointment/record`, generateRequestDetails('GET', token, 'json')), callback
+    )
+  },
+
+  async getConsultationForDoctor(callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/appointment/record`, generateRequestDetails('GET', token, 'json')), callback
+    )
+  },
+
+  async getConsultationForDoctor(callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/appointment/record`, generateRequestDetails('GET', token, 'json')), callback
+    )
+  },
+
 }
 
 export default RestApiManager

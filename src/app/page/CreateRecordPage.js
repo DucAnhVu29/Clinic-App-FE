@@ -18,6 +18,8 @@ import Color from "../constant/Color";
 import CommonToolsManager from "../common/CommonToolManager";
 import RestApiManager from "../common/RestApiManager";
 import ErrorManager from "../common/ErrorManager";
+import { useEffect } from "react";
+import AsyncStorageManager from "../common/AsyncStroageManager";
 
 function InputRow({ label, value, onChange, ...textInputProps }) {
   return (
@@ -43,6 +45,10 @@ export default function LoginPage({ navigation }) {
   const [followup, changeFollowup] = useState(false);
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [errMsg, changeErrMsg] = useState("");
+
+  useEffect(() => {
+    AsyncStorageManager.get("role").then((res) => setRole(res));
+  }, []);
 
   function clearInput() {
     changeDiagnosis();

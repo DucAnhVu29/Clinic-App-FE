@@ -7,6 +7,7 @@ import AccountPage from "./AccountPage";
 import ConsultationListingPage from "./ConsultationListingPage";
 import BookingPage from "./BookingPage";
 import AsyncStorageManager from "../common/AsyncStroageManager";
+import { AppointmentPage } from "./AppointmentPage";
 
 export default function AfterLoginMainStack() {
   const ClinicStack = createBottomTabNavigator();
@@ -20,9 +21,10 @@ export default function AfterLoginMainStack() {
     AsyncStorageManager.get("role").then((res) => setRole(res));
   }, []);
 
-  if (!role) {
-    return <Text> Loading</Text>;
-  } else if (role === "Patient") {
+  // if (!role) {
+  //   return <Text> Loading</Text>;
+  // } else 
+  if (role === "Patient") {
     return(<ClinicStack.Navigator screenOptions={{ headerShown: false }}>
       {/* <ClinicStack.Screen
           name="ConsultationListingPage"
@@ -64,6 +66,26 @@ export default function AfterLoginMainStack() {
             ),
           })}
         /> */}
+        <ClinicStack.Screen
+          name="AppointmentPage"
+          component={AppointmentPage}
+          options={({ navigation, route }) => ({
+            tabBarLabel: ({ focused }) => (
+              <Text style={{ color: focused ? "blue" : "black" }}>Appointment</Text>
+            ),
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={require("../../img/record.png")}
+                style={{
+                  maxHeight: 25,
+                  aspectRatio: 1 / 1,
+                  tintColor: focused ? "blue" : "black",
+                }}
+                resizeMode="contain"
+              />
+            ),
+          })}
+        />
       <ClinicStack.Screen
         name="FeedBackPage"
         component={FeedbackPage}
@@ -134,6 +156,26 @@ export default function AfterLoginMainStack() {
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
               <Text style={{ color: focused ? "blue" : "black" }}>Record</Text>
+            ),
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={require("../../img/record.png")}
+                style={{
+                  maxHeight: 25,
+                  aspectRatio: 1 / 1,
+                  tintColor: focused ? "blue" : "black",
+                }}
+                resizeMode="contain"
+              />
+            ),
+          })}
+        />
+        <ClinicStack.Screen
+          name="AppointmentPage"
+          component={AppointmentPage}
+          options={({ navigation, route }) => ({
+            tabBarLabel: ({ focused }) => (
+              <Text style={{ color: focused ? "blue" : "black" }}>Appointment</Text>
             ),
             tabBarIcon: ({ focused }) => (
               <Image

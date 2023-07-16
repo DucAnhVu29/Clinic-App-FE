@@ -7,12 +7,7 @@ import moment from "moment";
 import RestApiManager from "../common/RestApiManager";
 import CommonToolsManager from "../common/CommonToolManager";
 import ErrorManager from "../common/ErrorManager";
-
-const availableDoctors = [
-  { id: 1, name: "Dr. John Doe" },
-  { id: 2, name: "Dr. Jane Smith" },
-  { id: 3, name: "Dr. Michael Johnson" },
-];
+import AsyncStorageManager from "../common/AsyncStroageManager";
 
 export default function BookingPage({navigation}) {
   const [selectedDoctor, setSelectedDoctor] = useState(null);
@@ -26,6 +21,13 @@ export default function BookingPage({navigation}) {
   const [selectedValue, setSelectedValue] = useState();
   const [time, changeTime] = useState(Date.now());
   const [openDatePicker, setOpenDatePicker] = useState(false);
+  const [role, setRole] = useState();
+  console.log("role", role);
+
+  useEffect(() => {
+    AsyncStorageManager.get("role").then((res) => setRole(res));
+  }, []);
+
   // console.log("doctor", doctor)
   console.log("select", selectedValue);
   console.log("time", time);
@@ -70,27 +72,11 @@ export default function BookingPage({navigation}) {
   };
 
   const bookAppointment = () => {
-    // const formData = new FormData();
-    // formData.append("DoctorId", selectedValue);
-    // formData.append("Time", time);
-
-    // try{
-    //   await axios.put("https://clinic-app-cs8e.onrender.com/appointment/create", formData,
-    //   {
-    //     headers: {
-    //       "Content-Type": "multipart/form-data",
-    //     },
-    //   }
-    //   );
-    //   oncancel();
-    //   console.log("data:", formData);
-    // } catch (error) {
-    //   console.log("má ưi")
-    // }
     
+
     RestApiManager.createAppointment(selectedValue, time, (res) => {
       if (res.resCode === 1) {
-        navigation.navigate('AccountPage')
+        navigation.navigate('AppointmentPage')
         // Alert.alert(
         //   "Create Appointment Success",
         //   [
@@ -111,23 +97,23 @@ export default function BookingPage({navigation}) {
 
   const handleConfirmation = async () => {
 
-    const formData = new FormData();
-    formData.append("DoctorId", selectedValue);
-    formData.append("Time", time);
+    // const formData = new FormData();
+    // formData.append("DoctorId", selectedValue);
+    // formData.append("Time", time);
 
-    try{
-      await axios.put("https://clinic-app-cs8e.onrender.com/appointment/create", formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
-      );
-      oncancel();
-      console.log("data:", formData);
-    } catch (error) {
-      console.log("má ưi")
-    }
+    // try{
+    //   await axios.put("https://clinic-app-cs8e.onrender.com/appointment/create", formData,
+    //   {
+    //     headers: {
+    //       "Content-Type": "multipart/form-data",
+    //     },
+    //   }
+    //   );
+    //   oncancel();
+    //   console.log("data:", formData);
+    // } catch (error) {
+    //   console.log("má ưi")
+    // }
 
     console.log("Booking confirmed!");
     console.log("Doctor:", selectedDoctor);
