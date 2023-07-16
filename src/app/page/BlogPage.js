@@ -95,11 +95,12 @@ export const BlogPage = ({ navigation }) => {
           setEnlargeViewVisible(true);
         }}
       >
-        <Text style={{ fontSize: 16 }}>
+        {/* <Text style={{ fontSize: 16 }}>
           {CommonToolsManager.praseTime(item.time, "DD/MM/YYYY HH:mm")}{" "}
-        </Text>
-        <Text style={{ fontSize: 18 }}>Doctor:{item.doctorName}</Text>
-        <Text style={{ fontSize: 18 }}>PatientName:{item.patientName}</Text>
+        </Text> */}
+        <Text style={{ fontSize: 30 }}>{item.title}</Text>
+        <Text style={{ fontSize: 18 }}>By: {item.doctorName}</Text>
+        
         {role === "Patient" && (
           <Button title="Cancel" onPress={() => WarningModal(item.id)}>
             {" "}
@@ -130,7 +131,7 @@ export const BlogPage = ({ navigation }) => {
             <ActivityIndicator size="large" color="#0000ff" />
           ) : (
             <Text style={{ textAlign: "center", marginVertical: 25 }}>
-              No more record
+              No more Blog
             </Text>
           )
         }

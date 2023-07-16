@@ -112,6 +112,13 @@ const RestApiManager = {
     handleRestApiResoponse(
       fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('GET', token, 'json')), callback
     )
+  },
+
+  async getPostBlog(CID, title, description, callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('GET', token, { DoctorId: CID, title: title, description: description} , 'json')), callback
+    )
   }
 
 }
