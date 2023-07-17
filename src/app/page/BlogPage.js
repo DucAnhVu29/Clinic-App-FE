@@ -17,6 +17,9 @@ import Color from "../constant/Color";
 import { Text } from "react-native";
 import CommonToolsManager from "../common/CommonToolManager";
 import axios from "axios";
+import { TextInput } from "react-native";
+import { Modal } from "react-native";
+import { Alert } from "react-native";
 
 export const BlogPage = ({ navigation }) => {
   const [blogList, setBloglist] = useState([]);
@@ -26,10 +29,38 @@ export const BlogPage = ({ navigation }) => {
   const [stopToLoad, setStopToLoad] = useState(false);
   const [role, setRole] = useState();
   const [doctor, setDoctor] = useState([]);
-  console.log("doctor:", doctor)
+  console.log("doctor:", doctor);
+
+  console.log("role", role);
+
+  //post blog
+  const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState();
+  const [description, setDescription] = useState();
+  const [email, setEmail] = useState();
+  const [id, setCId] = useState();
+  const [doctorName, setDoctorName] = useState();
+  console.log("id", id);
+  console.log("title", title);
+  console.log("description", description);
+  console.log("email", email);
+  console.log("doctor:", doctorName);
+
   useEffect(() => {
     AsyncStorageManager.get("role").then((res) => {
       setRole(res);
+    });
+
+    AsyncStorageManager.get("email").then((res) => {
+      setEmail(res);
+    });
+
+    AsyncStorageManager.get("cid").then((res) => {
+      setCId(res);
+    });
+
+    AsyncStorageManager.get("clinicName").then((res) => {
+      setDoctorName(res);
     });
   }, []);
 
@@ -46,6 +77,19 @@ export const BlogPage = ({ navigation }) => {
     };
     fetchData();
   }, []);
+
+  const submitPost = () => {
+    RestApiManager.getPostBlog(
+      id,
+      doctorName,
+      email,
+      title,
+      description,
+      (res) => {
+        console.log("post thành công", res), setModalVisible(false), refresh();
+      }
+    );
+  };
 
   function updateList(entireNewList) {
     setIsLoading(true);
@@ -81,6 +125,77 @@ export const BlogPage = ({ navigation }) => {
     updateList(false);
   }
 
+
+  const handleUpdate = (item) => {
+    return (
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles1.modalContainer}>
+          <View style={styles1.modalContent}>
+            <Text style={styles1.modalTitle}>Post Blog</Text>
+            <TextInput
+              style={styles1.feedbackInput}
+              placeholder="Enter your Title"
+              onChangeText={(text) => setTitle(text)}
+              value={title}
+            />
+            <TextInput
+              style={styles1.feedbackInput}
+              placeholder="Enter your feedback"
+              onChangeText={(text) => setDescription(text)}
+              value={description}
+              multiline
+            />
+            <View style={styles1.fixToText}>
+              <Button
+                style={styles1.submitButton}
+                onPress={() => {
+                  setModalVisible(false);
+                }}
+                title="cancel"
+              ></Button>
+              <Button
+                style={styles1.submitButton}
+                onPress={updatePost(item)}
+                title="Update"
+              >
+                {/* <Text style={styles1.submitButtonText}>Submit</Text> */}
+              </Button>
+            </View>
+          </View>
+        </View>
+      </Modal>
+    );
+  };
+
+  const updatePost = (item) => {
+    RestApiManager.UpdatePost(item, title, description, (res) => {
+        console.log("update thành công". res), refresh()
+    })
+  }
+
+  const handleDelete = (item) => {
+    Alert.alert(
+      "Confirmation",
+      "Are you sure you want to delete this item?",
+      [
+        { text: "Cancel", style: "cancel" },
+        { text: "OK", onPress: () => performDeletion(item) },
+      ],
+      { cancelable: true }
+    );
+  };
+
+  const performDeletion = (item) => {
+    RestApiManager.deletePost(item, (res) => {
+      console.log("delete thành công", res), refresh();
+    });
+  };
+
   function renderRecord(item, idx) {
     return (
       <TouchableOpacity
@@ -100,11 +215,16 @@ export const BlogPage = ({ navigation }) => {
         </Text> */}
         <Text style={{ fontSize: 30 }}>{item.title}</Text>
         <Text style={{ fontSize: 18 }}>By: {item.doctorName}</Text>
-        
-        {role === "Patient" && (
-          <Button title="Cancel" onPress={() => WarningModal(item.id)}>
-            {" "}
-          </Button>
+
+        {role === "Doctor" && (
+          <View style={styles1.fixToText}>
+            <Button title="Update" onPress={() => handleUpdate(item.id)}>
+              {" "}
+            </Button>
+            <Button title="Delete" onPress={() => handleDelete(item.id)}>
+              {" "}
+            </Button>
+          </View>
         )}
       </TouchableOpacity>
     );
@@ -140,6 +260,58 @@ export const BlogPage = ({ navigation }) => {
         }}
         onEndReachedThreshold={0.01}
       />
+      {role === "Doctor" && (
+        <View>
+          <Button
+            style={styles1.addButton}
+            title="Post"
+            onPress={() => setModalVisible(true)}
+          >
+            {/* <Text style={styles1.plusSign}>+</Text> */}
+          </Button>
+          <Modal
+            animationType="slide"
+            transparent={true}
+            visible={modalVisible}
+            onRequestClose={() => setModalVisible(false)}
+          >
+            <View style={styles1.modalContainer}>
+              <View style={styles1.modalContent}>
+                <Text style={styles1.modalTitle}>Post Blog</Text>
+                <TextInput
+                  style={styles1.feedbackInput}
+                  placeholder="Enter your Title"
+                  onChangeText={(text) => setTitle(text)}
+                  value={title}
+                />
+                <TextInput
+                  style={styles1.feedbackInput}
+                  placeholder="Enter your feedback"
+                  onChangeText={(text) => setDescription(text)}
+                  value={description}
+                  multiline
+                />
+                <View style={styles1.fixToText}>
+                  <Button
+                    style={styles1.submitButton}
+                    onPress={() => {
+                      setModalVisible(false);
+                    }}
+                    title="cancel"
+                  ></Button>
+                  <Button
+                    style={styles1.submitButton}
+                    onPress={submitPost}
+                    title="submit"
+                  >
+                    {/* <Text style={styles1.submitButtonText}>Submit</Text> */}
+                  </Button>
+                </View>
+              </View>
+            </View>
+          </Modal>
+        </View>
+      )}
     </View>
 
     //   </ViewBase>
@@ -160,5 +332,85 @@ const styles = StyleSheet.create({
     color: "white",
     marginBottom: 20,
     fontWeight: "bold",
+  },
+});
+
+const styles1 = StyleSheet.create({
+  container: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    backgroundColor: "#FFFFFF",
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 16,
+    marginBottom: 10,
+  },
+  date: {
+    fontSize: 14,
+    color: "#999999",
+  },
+  addButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#0066FF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  plusSign: {
+    fontSize: 30,
+    color: "white",
+  },
+  modalContainer: {
+    flex: 1,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContent: {
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 20,
+    width: "80%",
+    maxHeight: "80%",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 10,
+  },
+  feedbackInput: {
+    borderWidth: 1,
+    borderColor: "#999999",
+    borderRadius: 5,
+    height: 100,
+    paddingHorizontal: 10,
+    marginBottom: 10,
+  },
+  submitButton: {
+    backgroundColor: "#0066FF",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 5,
+    alignSelf: "flex-end",
+  },
+  submitButtonText: {
+    color: "white",
+    fontSize: 16,
+  },
+
+  fixToText: {
+    flexDirection: "row",
+    gap: 10,
+    justifyContent: "flex-end",
   },
 });

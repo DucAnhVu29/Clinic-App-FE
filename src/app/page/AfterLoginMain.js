@@ -52,7 +52,7 @@ export default function AfterLoginMainStack() {
           component={BlogPage}
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
-              <Text style={{ color: focused ? "blue" : "black" }}>Create</Text>
+              <Text style={{ color: focused ? "blue" : "black" }}>Blog</Text>
             ),
             tabBarIcon: ({ focused }) => (
               <Image

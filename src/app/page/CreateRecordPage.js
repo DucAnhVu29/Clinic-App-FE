@@ -20,6 +20,7 @@ import RestApiManager from "../common/RestApiManager";
 import ErrorManager from "../common/ErrorManager";
 import { useEffect } from "react";
 import AsyncStorageManager from "../common/AsyncStroageManager";
+import moment from "moment";
 
 function InputRow({ label, value, onChange, ...textInputProps }) {
   return (
@@ -45,9 +46,13 @@ export default function LoginPage({ navigation }) {
   const [followup, changeFollowup] = useState(false);
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const [errMsg, changeErrMsg] = useState("");
+  const [role, setRole] = useState();
+  const [doctor, setDoctor] = useState();
 
   useEffect(() => {
     AsyncStorageManager.get("role").then((res) => setRole(res));
+
+    AsyncStorageManager.get("doctorName").then((res) => setRole(res));
   }, []);
 
   function clearInput() {
@@ -154,6 +159,7 @@ export default function LoginPage({ navigation }) {
         <DateTimePicker
           mode="datetime"
           isVisible={openDatePicker}
+          minimumDate={moment().toDate()}
           onConfirm={(date) => {
             setOpenDatePicker(false);
             changeTime(new Date(date).getTime());

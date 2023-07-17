@@ -114,13 +114,26 @@ const RestApiManager = {
     )
   },
 
-  async getPostBlog(CID, title, description, callback) {
+  async getPostBlog(CID, doctorName, email, title, description, callback) {
     const token = await AsyncStorageManager.get('token')
     handleRestApiResoponse(
-      fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('GET', token, { DoctorId: CID, title: title, description: description} , 'json')), callback
+      fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('POST', token, {CID,doctorName ,email,title,description} , 'json')), callback
+    )
+  },
+
+  async UpdatePost(id, title, description, callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('PUT', token, {id, title, description} , 'json')), callback
+    )
+  },
+
+  async deletePost(id, callback){
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('Delete', token, {id} , 'json')), callback
     )
   }
-
 }
 
 export default RestApiManager
