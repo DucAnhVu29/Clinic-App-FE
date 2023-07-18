@@ -125,7 +125,6 @@ export const BlogPage = ({ navigation }) => {
     updateList(false);
   }
 
-
   const handleUpdate = (item) => {
     return (
       <Modal
@@ -174,9 +173,9 @@ export const BlogPage = ({ navigation }) => {
 
   const updatePost = (item) => {
     RestApiManager.UpdatePost(item, title, description, (res) => {
-        console.log("update thành công". res), refresh()
-    })
-  }
+      console.log("update thành công".res), refresh();
+    });
+  };
 
   const handleDelete = (item) => {
     Alert.alert(
@@ -231,7 +230,14 @@ export const BlogPage = ({ navigation }) => {
   }
   return (
     //   <ViewBase style={styles.container}>
-    <View style={{ flex: 1, backgroundColor: Color.lightGrey, width: "100%" }}>
+    <View
+      style={{
+        flex: 1,
+        backgroundColor: Color.lightGrey,
+        width: "100%",
+        marginTop: 32,
+      }}
+    >
       <FlatList
         data={blogList}
         renderItem={({ item, index }) => renderRecord(item, index)}
@@ -242,7 +248,9 @@ export const BlogPage = ({ navigation }) => {
         ListFooterComponent={
           isLoading ? (
             // <ActivityIndicator size="large" color="#0000ff" />
-            <Text>Loading nè</Text>
+            <View style={styles.loading}>
+              <Text style={styles.textLoading}>Loading</Text>
+            </View>
           ) : blogList.length === 0 ? (
             <Text style={{ textAlign: "center", marginTop: 50 }}>
               No record for this time period
@@ -333,6 +341,17 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     fontWeight: "bold",
   },
+  loading: {
+    backgroundColor: "#f0f0f0",
+    padding: 20,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textLoading: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
 });
 
 const styles1 = StyleSheet.create({
@@ -392,12 +411,13 @@ const styles1 = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#999999",
     borderRadius: 5,
-    height: 100,
-    paddingHorizontal: 10,
+    height: 150,
+    padding: 10,
     marginBottom: 10,
+    textAlignVertical: "top",
   },
   submitButton: {
-    backgroundColor: "#0066FF",
+    backgroundColor: "red",
     paddingVertical: 10,
     paddingHorizontal: 20,
     borderRadius: 5,

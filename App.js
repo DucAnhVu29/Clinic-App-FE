@@ -1,11 +1,11 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createStackNavigator } from "@react-navigation/stack";
 
-import LoginPage from './src/app/page/LoginPage'
-import RegisterPage from './src/app/page/RegisterPage'
-import AfterLoginMain from './src/app/page/AfterLoginMain'
-import DetailScreen from './src/app/page/DetailScreen';
+import LoginPage from "./src/app/page/LoginPage";
+import RegisterPage from "./src/app/page/RegisterPage";
+import AfterLoginMain from "./src/app/page/AfterLoginMain";
+import DetailScreen from "./src/app/page/DetailScreen";
 
 export default function App() {
   const Stack = createStackNavigator();

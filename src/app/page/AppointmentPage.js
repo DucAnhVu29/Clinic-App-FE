@@ -36,8 +36,8 @@ export const AppointmentPage = ({ navigation }) => {
 
   useEffect(() => {
     AsyncStorageManager.get("role").then((res) => {
-        setRole(res);
-    })
+      setRole(res);
+    });
 
     AsyncStorageManager.get("clinicName").then((res) => {
       setDoctorName(res);
@@ -70,13 +70,11 @@ export const AppointmentPage = ({ navigation }) => {
     });
   }
 
-  
-
   const cancelAppointment = (id) => {
     RestApiManager.cancelAppointment(id, (res) => {
-        refresh();
-    } )
-  }
+      refresh();
+    });
+  };
 
   function refresh() {
     updateList(true);
@@ -87,18 +85,17 @@ export const AppointmentPage = ({ navigation }) => {
   }
 
   function renderRecord(item, idx) {
-
     const WarningModal = () => {
-        Alert.alert(
-          'Confirmation',
-          'Are you sure?',
-          [
-            { text: 'Cancel', style: 'cancel' },
-            { text: 'OK', onPress:() => cancelAppointment(item.id) },
-          ],
-          { cancelable: true }
-        );
-      };
+      Alert.alert(
+        "Confirmation",
+        "Are you sure?",
+        [
+          { text: "Cancel", style: "cancel" },
+          { text: "OK", onPress: () => cancelAppointment(item.id) },
+        ],
+        { cancelable: true }
+      );
+    };
 
     return (
       <TouchableOpacity
@@ -118,7 +115,11 @@ export const AppointmentPage = ({ navigation }) => {
         </Text>
         <Text style={{ fontSize: 18 }}>Doctor:{item.doctorName}</Text>
         <Text style={{ fontSize: 18 }}>PatientName:{item.patientName}</Text>
-        {role === "Patient" && <Button title="Cancel" onPress={() => WarningModal(item.id)}> </Button>}        
+        {role === "Patient" && (
+          <Button title="Cancel" onPress={() => WarningModal(item.id)}>
+            {" "}
+          </Button>
+        )}
       </TouchableOpacity>
     );
   }
@@ -129,7 +130,12 @@ export const AppointmentPage = ({ navigation }) => {
     return (
       //   <ViewBase style={styles.container}>
       <View
-        style={{ flex: 1, backgroundColor: Color.lightGrey, width: "100%" }}
+        style={{
+          flex: 1,
+          backgroundColor: Color.lightGrey,
+          width: "100%",
+          paddingTop: 32,
+        }}
       >
         <FlatList
           data={appointmentList}
@@ -141,7 +147,9 @@ export const AppointmentPage = ({ navigation }) => {
           ListFooterComponent={
             isLoading ? (
               // <ActivityIndicator size="large" color="#0000ff" />
-              <Text>Loading nè</Text>
+              <View style={styles.loading}>
+                <Text style={styles.textLoading}>Loading</Text>
+              </View>
             ) : appointmentList.length === 0 ? (
               <Text style={{ textAlign: "center", marginTop: 50 }}>
                 No record for this time period
@@ -161,7 +169,6 @@ export const AppointmentPage = ({ navigation }) => {
         />
       </View>
 
-      
       //   </ViewBase>
     );
   }
@@ -180,6 +187,17 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: "white",
     marginBottom: 20,
+    fontWeight: "bold",
+  },
+  loading: {
+    backgroundColor: "#f0f0f0",
+    padding: 20,
+    borderRadius: 8,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  textLoading: {
+    fontSize: 16,
     fontWeight: "bold",
   },
 });

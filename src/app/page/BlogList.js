@@ -12,10 +12,12 @@ const PostItem = ({ item, navigator }) => {
       style={styles.row}
       activeOpacity={0.6}
       onPress={() =>
-        navigator.navigate({ component: NewsDetailPage, passProps: { item: item } })
+        navigator.navigate({
+          component: NewsDetailPage,
+          passProps: { item: item },
+        })
       }
     >
-
       <Text style={styles.title}>{item.title}</Text>
 
       <Text style={styles.description}>
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
   title: {
     margin: 15,
     marginBottom: 0,
-    fontSize: 17,
+    fontSize: 16,
     fontWeight: "500",
   },
   description: {
