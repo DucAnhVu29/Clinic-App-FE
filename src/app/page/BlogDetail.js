@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -10,8 +10,8 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
-import { useEffect } from "react";
 import AsyncStorageManager from "../common/AsyncStroageManager";
+import { ScrollView } from "react-native-gesture-handler";
 
 export default function BlogDetail({ route }) {
   const { item } = route.params;
@@ -43,75 +43,69 @@ export default function BlogDetail({ route }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBackButton}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.contentContainer}>
-        <View style={styles.row}>
-          <Text style={styles.label}>Title:</Text>
-          <Text style={styles.value}>{item.title}</Text>
+      <ScrollView>
+        <View style={styles.header}>
+          <TouchableOpacity
+            style={styles.backButton}
+            onPress={handleBackButton}
+          >
+            <Ionicons name="arrow-back" size={24} color="black" />
+          </TouchableOpacity>
         </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>description:</Text>
-          <Text style={styles.value}>{item.description}</Text>
-        </View>
-        <View style={styles.row}>
-          <Text style={styles.label}>By:</Text>
-          <Text style={styles.value}>{item.doctorName}</Text>
-        </View>
-        {/* <View style={styles.row}>
-          <Text style={styles.label}>Medication:</Text>
-          <Text style={styles.value}>{item.medication}</Text>
-        </View> */}
-        {/* <View style={styles.row}>
-          <Text style={styles.label}>Consultation Fee:</Text>
-          <Text style={styles.value}>{item.consultationFee}$</Text>
-        </View> */}
-      </View>
-      {role === "Patient" && (
-        <TouchableOpacity
-          style={styles.addButton}
-          onPress={() => setModalVisible(true)}
-        >
-          <Text style={styles.plusSign}>+</Text>
-        </TouchableOpacity>
-      )}
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={modalVisible}
-        onRequestClose={() => setModalVisible(false)}
-      >
-        <View style={styles.modalContainer}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitle}>Submit Feedback</Text>
-            <TextInput
-              style={styles.feedbackInput}
-              placeholder="Enter your feedback"
-              onChangeText={(text) => setFeedback(text)}
-              value={feedback}
-              multiline={true}
-              numberOfLines={10}
-            />
-            <View style={styles.modalButtonContainer}>
-              <TouchableOpacity
-                style={[styles.modalButton, styles.submitButton]}
-                onPress={submitFeedback}
-              >
-                <Text style={styles.submitButtonText}>Submit</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modalButton, styles.cancelButton]}
-                onPress={clearFeedback}
-              >
-                <Text style={styles.cancelButtonText}>Cancel</Text>
-              </TouchableOpacity>
-            </View>
+        <View style={styles.contentContainer}>
+          <View style={styles.row}>
+            <Text style={styles.title}>{item.title}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.content}>{item.description}</Text>
+          </View>
+          <View style={styles.row}>
+            <Text style={styles.author}>{item.doctorName}</Text>
           </View>
         </View>
-      </Modal>
+        {role === "Patient" && (
+          <TouchableOpacity
+            style={styles.addButton}
+            onPress={() => setModalVisible(true)}
+          >
+            <Text style={styles.plusSign}>+</Text>
+          </TouchableOpacity>
+        )}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={modalVisible}
+          onRequestClose={() => setModalVisible(false)}
+        >
+          <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitle}>Submit Feedback</Text>
+              <TextInput
+                style={styles.feedbackInput}
+                placeholder="Enter your feedback"
+                onChangeText={(text) => setFeedback(text)}
+                value={feedback}
+                multiline={true}
+                numberOfLines={10}
+              />
+              <View style={styles.modalButtonContainer}>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.submitButton]}
+                  onPress={submitFeedback}
+                >
+                  <Text style={styles.submitButtonText}>Submit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.modalButton, styles.cancelButton]}
+                  onPress={clearFeedback}
+                >
+                  <Text style={styles.cancelButtonText}>Cancel</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -131,19 +125,6 @@ const styles = StyleSheet.create({
   backButton: {
     marginRight: 10,
     marginTop: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  description: {
-    fontSize: 16,
-    marginBottom: 10,
-  },
-  date: {
-    fontSize: 14,
-    color: "#999999",
   },
   addButton: {
     position: "absolute",
@@ -212,20 +193,20 @@ const styles = StyleSheet.create({
   },
   contentContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
   },
   row: {
-    flexDirection: "row",
-    alignItems: "center",
     marginBottom: 10,
   },
-  label: {
-    fontSize: 18,
+  title: {
+    fontSize: 24,
+    marginTop: 10,
     fontWeight: "bold",
-    width: 150,
   },
-  value: {
+  content: {
     fontSize: 18,
+  },
+  author: {
+    fontSize: 22,
+    fontWeight: "bold",
   },
 });
