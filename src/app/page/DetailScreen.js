@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
+import { Pressable } from "react-native";
 
 export default function DetailScreen({ route }) {
   const { item } = route.params;
@@ -35,9 +36,9 @@ export default function DetailScreen({ route }) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity style={styles.backButton} onPress={handleBackButton}>
+        <Pressable style={styles.backButton} onPress={handleBackButton}>
           <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
+        </Pressable>
       </View>
       <View style={styles.contentContainer}>
         <View style={styles.row}>
@@ -62,12 +63,12 @@ export default function DetailScreen({ route }) {
         </View>
       </View>
 
-      <TouchableOpacity
+      <Pressable
         style={styles.addButton}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.plusSign}>+</Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <Modal
         animationType="slide"
@@ -87,18 +88,18 @@ export default function DetailScreen({ route }) {
               numberOfLines={10}
             />
             <View style={styles.modalButtonContainer}>
-              <TouchableOpacity
+              <Pressable
                 style={[styles.modalButton, styles.submitButton]}
                 onPress={submitFeedback}
               >
                 <Text style={styles.submitButtonText}>Submit</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
+              </Pressable>
+              <Pressable
                 style={[styles.modalButton, styles.cancelButton]}
                 onPress={clearFeedback}
               >
                 <Text style={styles.cancelButtonText}>Cancel</Text>
-              </TouchableOpacity>
+              </Pressable>
             </View>
           </View>
         </View>

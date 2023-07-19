@@ -47,6 +47,26 @@ export default function AfterLoginMainStack() {
           })}
         />
         <ClinicStack.Screen
+          name="BookingPage"
+          component={BookingPage}
+          options={({ navigation, route }) => ({
+            tabBarLabel: ({ focused }) => (
+              <Text style={{ color: focused ? "blue" : "black" }}>Booking</Text>
+            ),
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={require("../../img/hospital.png")}
+                style={{
+                  maxHeight: 25,
+                  aspectRatio: 1 / 1,
+                  tintColor: focused ? "blue" : "black",
+                }}
+                resizeMode="contain"
+              />
+            ),
+          })}
+        />
+        <ClinicStack.Screen
           name="AppointmentPage"
           component={AppointmentPage}
           options={({ navigation, route }) => ({
@@ -68,7 +88,7 @@ export default function AfterLoginMainStack() {
             ),
           })}
         />
-        <ClinicStack.Screen
+        {/* <ClinicStack.Screen
           name="FeedBackPage"
           component={FeedbackPage}
           options={({ navigation, route }) => ({
@@ -89,17 +109,17 @@ export default function AfterLoginMainStack() {
               />
             ),
           })}
-        />
+        /> */}
         <ClinicStack.Screen
-          name="BookingPage"
-          component={BookingPage}
+          name="ConsultationListingPage"
+          component={ConsultationListingPage}
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
-              <Text style={{ color: focused ? "blue" : "black" }}>Booking</Text>
+              <Text style={{ color: focused ? "blue" : "black" }}>Record</Text>
             ),
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("../../img/hospital.png")}
+                source={require("../../img/record.png")}
                 style={{
                   maxHeight: 25,
                   aspectRatio: 1 / 1,
@@ -110,6 +130,7 @@ export default function AfterLoginMainStack() {
             ),
           })}
         />
+
         <ClinicStack.Screen
           name="AccountPage"
           component={AccountPage}
@@ -136,15 +157,15 @@ export default function AfterLoginMainStack() {
     return (
       <ClinicStack.Navigator screenOptions={{ headerShown: false }}>
         <ClinicStack.Screen
-          name="ConsultationListingPage"
-          component={ConsultationListingPage}
+          name="BlogPage"
+          component={BlogPage}
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
-              <Text style={{ color: focused ? "blue" : "black" }}>Record</Text>
+              <Text style={{ color: focused ? "blue" : "black" }}>Blog</Text>
             ),
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("../../img/record.png")}
+                source={require("../../img/hospital.png")}
                 style={{
                   maxHeight: 25,
                   aspectRatio: 1 / 1,
@@ -177,7 +198,7 @@ export default function AfterLoginMainStack() {
             ),
           })}
         />
-        <ClinicStack.Screen
+        {/* <ClinicStack.Screen
           name="CreateRecordPage"
           component={CreateRecordPage}
           options={({ navigation, route }) => ({
@@ -196,17 +217,17 @@ export default function AfterLoginMainStack() {
               />
             ),
           })}
-        />
+        /> */}
         <ClinicStack.Screen
-          name="BlogPage"
-          component={BlogPage}
+          name="ConsultationListingPage"
+          component={ConsultationListingPage}
           options={({ navigation, route }) => ({
             tabBarLabel: ({ focused }) => (
-              <Text style={{ color: focused ? "blue" : "black" }}>Blog</Text>
+              <Text style={{ color: focused ? "blue" : "black" }}>Record</Text>
             ),
             tabBarIcon: ({ focused }) => (
               <Image
-                source={require("../../img/hospital.png")}
+                source={require("../../img/record.png")}
                 style={{
                   maxHeight: 25,
                   aspectRatio: 1 / 1,
@@ -217,6 +238,7 @@ export default function AfterLoginMainStack() {
             ),
           })}
         />
+
         <ClinicStack.Screen
           name="AccountPage"
           component={AccountPage}

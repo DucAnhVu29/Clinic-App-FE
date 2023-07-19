@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Pressable } from "react-native";
 import {
   StyleSheet,
   View,
@@ -23,22 +24,22 @@ console.log("item", item)
 
   return (
     <View style={styles.container}>
-        <View>
+        {/* <View>
             <Text>eeeeeeeeeeeeeeeeeeeeeeee</Text>
           <Text style={styles.title}>{item.doctorName}</Text>
           <Text style={styles.description}>{item.patientName}</Text>
           <Text style={styles.description}>{item.diagnosis}</Text>
           <Text style={styles.description}>{item.medication}</Text>
-          <Text style={styles.description}>{item.consultationFee}$</Text>
+          <Text style={styles.description}>{item.consultationFee}$</Text> */}
           {/* <Text style={styles.date}>{item.time}</Text> */}
-        </View>
+        {/* </View> */}
 
-      <TouchableOpacity
+      <Pressable
         style={styles.addButton}
         onPress={() => setModalVisible(true)}
       >
         <Text style={styles.plusSign}>+</Text>
-      </TouchableOpacity>
+      </Pressable>
 
       <Modal
         animationType="slide"
@@ -63,12 +64,12 @@ console.log("item", item)
               value={feedback}
               multiline
             />
-            <TouchableOpacity
+            <Pressable
               style={styles.submitButton}
               onPress={submitFeedback}
             >
               <Text style={styles.submitButtonText}>Submit</Text>
-            </TouchableOpacity>
+            </Pressable>
           </View>
         </View>
       </Modal>
