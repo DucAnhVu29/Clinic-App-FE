@@ -44,12 +44,13 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    height: 120,
+    height: 150,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 10,
-    marginBottom: 20,
+    margin: 20,
+    textAlignVertical: "top",
   },
   button: {
     backgroundColor: "blue",
