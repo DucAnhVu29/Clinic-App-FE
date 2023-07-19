@@ -6,6 +6,7 @@ import LoginPage from "./src/app/page/LoginPage";
 import RegisterPage from "./src/app/page/RegisterPage";
 import AfterLoginMain from "./src/app/page/AfterLoginMain";
 import DetailScreen from "./src/app/page/DetailScreen";
+import BlogDetail from "./src/app/page/BlogDetail";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -17,6 +18,7 @@ export default function App() {
         <Stack.Screen name="RegisterPage" component={RegisterPage} />
         <Stack.Screen name="AfterLoginMain" component={AfterLoginMain} />
         <Stack.Screen name="DetailScreen" component={DetailScreen} />
+        <Stack.Screen name="BlogDetail" component={BlogDetail}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
