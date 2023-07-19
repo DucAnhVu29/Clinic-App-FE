@@ -5,13 +5,20 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 
 export default function FeedbackPage() {
   const [feedback, setFeedback] = useState("");
 
   const submitFeedback = () => {
-    console.log("Feedback submitted:", feedback);
+    if (feedback.trim() === "") {
+      Alert.alert("Error", "Please enter your feedback before submitting.");
+    } else {
+      Alert.alert("Success", "Feedback submitted successfully!", [
+        { text: "OK", onPress: () => setFeedback("") }, // Clear the feedback input
+      ]);
+    }
   };
 
   return (
@@ -44,12 +51,13 @@ const styles = StyleSheet.create({
   },
   input: {
     width: "80%",
-    height: 120,
+    height: 150,
     borderWidth: 1,
     borderColor: "#ccc",
     borderRadius: 8,
     padding: 10,
-    marginBottom: 20,
+    margin: 20,
+    textAlignVertical: "top",
   },
   button: {
     backgroundColor: "blue",
