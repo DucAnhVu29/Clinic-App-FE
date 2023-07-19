@@ -7,6 +7,7 @@ import RegisterPage from "./src/app/page/RegisterPage";
 import AfterLoginMain from "./src/app/page/AfterLoginMain";
 import DetailScreen from "./src/app/page/DetailScreen";
 import BlogDetail from "./src/app/page/BlogDetail";
+import CreateRecordPage from "./src/app/page/CreateRecordPage";
 
 export default function App() {
   const Stack = createStackNavigator();
@@ -19,6 +20,7 @@ export default function App() {
         <Stack.Screen name="AfterLoginMain" component={AfterLoginMain} />
         <Stack.Screen name="DetailScreen" component={DetailScreen} />
         <Stack.Screen name="BlogDetail" component={BlogDetail}/>
+        <Stack.Screen name="CreateRecordPage" component={CreateRecordPage}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

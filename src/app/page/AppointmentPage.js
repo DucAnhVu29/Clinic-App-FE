@@ -97,31 +97,61 @@ export const AppointmentPage = ({ navigation }) => {
       );
     };
 
-    return (
-      <TouchableOpacity
-        key={idx}
-        style={{
-          paddingVertical: 15,
-          marginHorizontal: 15,
-          borderBottomWidth: 1,
-        }}
-        onPress={() => {
-          setEnlargeIndex(idx);
-          setEnlargeViewVisible(true);
-        }}
-      >
-        <Text style={{ fontSize: 16 }}>
-          {CommonToolsManager.praseTime(item.time, "DD/MM/YYYY HH:mm")}{" "}
-        </Text>
-        <Text style={{ fontSize: 18 }}>Doctor:{item.doctorName}</Text>
-        <Text style={{ fontSize: 18 }}>PatientName:{item.patientName}</Text>
-        {role === "Patient" && (
+    console.log("dứa", item)
+    if (role === "Patient") {
+      return (
+        <Pressable
+          key={idx}
+          style={{
+            paddingVertical: 15,
+            marginHorizontal: 15,
+            borderBottomWidth: 1,
+          }}
+          onPress={() => {
+            setEnlargeIndex(idx);
+            setEnlargeViewVisible(true);
+          }}
+        >
+          <Text style={{ fontSize: 16 }}>
+            {CommonToolsManager.praseTime(item.time, "DD/MM/YYYY HH:mm")}{" "}
+          </Text>
+          <Text style={{ fontSize: 18 }}>Doctor:{item.doctorName}</Text>
+          <Text style={{ fontSize: 18 }}>PatientName:{item.patientName}</Text>
+          {/* {role === "Patient" && ( */}
           <Button title="Cancel" onPress={() => WarningModal(item.id)}>
             {" "}
           </Button>
-        )}
-      </TouchableOpacity>
-    );
+          {/* )} */}
+        </Pressable>
+      );
+    } else if (role === "Doctor") {
+      return (
+        <Pressable
+          key={idx}
+          style={{
+            paddingVertical: 15,
+            marginHorizontal: 15,
+            borderBottomWidth: 1,
+          }}
+          onPress={() => {
+            setEnlargeIndex(idx);
+            setEnlargeViewVisible(true);
+            navigation.navigate("CreateRecordPage", {item: item})
+          }}
+        >
+          <Text style={{ fontSize: 16 }}>
+            {CommonToolsManager.praseTime(item.time, "DD/MM/YYYY HH:mm")}{" "}
+          </Text>
+          <Text style={{ fontSize: 18 }}>Doctor:{item.doctorName}</Text>
+          <Text style={{ fontSize: 18 }}>PatientName:{item.patientName}</Text>
+          {/* {role === "Patient" && ( */}
+          {/* <Button title="Cancel" onPress={() => WarningModal(item.id)}>
+            {" "}
+          </Button> */}
+          {/* )} */}
+        </Pressable>
+      );
+    }
   }
 
   if (!doctor) {

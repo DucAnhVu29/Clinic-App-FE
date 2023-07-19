@@ -1,6 +1,7 @@
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { View } from "react-native";
+import { Pressable } from "react-native";
 import { Text } from "react-native";
 import { Image } from "react-native";
 import { FlatList } from "react-native";
@@ -8,7 +9,7 @@ import { StyleSheet } from "react-native";
 
 const PostItem = ({ item, navigator }) => {
   return (
-    <TouchableOpacity
+    <Pressable
       style={styles.row}
       activeOpacity={0.6}
       onPress={() =>
@@ -23,7 +24,7 @@ const PostItem = ({ item, navigator }) => {
       <Text style={styles.description}>
         {item.body.length < 80 ? item.body : `${item.body.slice(0, 80)}...`}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
   );
 };
 const BlogList = ({ items, navigator }) => {

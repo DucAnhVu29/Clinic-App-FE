@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { View } from "react-native";
+import { Pressable, View } from "react-native";
 import { Button } from "react-native";
 import {
   FlatList,
@@ -197,7 +197,7 @@ export const BlogPage = ({ navigation }) => {
 
   function renderRecord(item, idx) {
     return (
-      <TouchableOpacity
+      <Pressable
         key={idx}
         style={{
           paddingVertical: 15,
@@ -231,7 +231,7 @@ export const BlogPage = ({ navigation }) => {
             </Button>
           </View>
         )}
-      </TouchableOpacity>
+      </Pressable>
     );
   }
   return (

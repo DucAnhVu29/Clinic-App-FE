@@ -20,6 +20,7 @@ import AsyncStroageManager from "../common/AsyncStroageManager";
 import ConsultationModel from "../modal/ConsultationModel";
 import RestApiManager from "../common/RestApiManager";
 import ErrorManager from "../common/ErrorManager";
+import { Pressable } from "react-native";
 
 export default function LoginPage({ navigation }) {
   const [clinicName, setClinicName] = useState();
@@ -79,7 +80,7 @@ export default function LoginPage({ navigation }) {
 
   function renderRecord(item, idx) {
     return (
-      <TouchableOpacity
+      <Pressable
       key={idx}
       style={{
         paddingVertical: 15,
@@ -96,7 +97,7 @@ export default function LoginPage({ navigation }) {
       <Text style={{ fontSize: 18 }}>
         {item.doctorName} gave consultation to {item.patientName}
       </Text>
-    </TouchableOpacity>
+    </Pressable>
      );
     }
     function getTimeDisplay() {
@@ -116,13 +117,13 @@ export default function LoginPage({ navigation }) {
           alignItems: "center",
         }}
       >
-        <TouchableOpacity onPress={() => previousTimeSlot()}>
+        <Pressable onPress={() => previousTimeSlot()}>
         <Text style={{ fontSize: 40, color: "grey" }}>{"<"}</Text>
-        </TouchableOpacity>
+        </Pressable>
         <Text style={{ fontSize: 15, color: "white" }}>{timeString}</Text>
-        <TouchableOpacity onPress={() => nextTimeSlot()}>
+        <Pressable onPress={() => nextTimeSlot()}>
         <Text style={{ fontSize: 40, color: "grey" }}>{">"}</Text>
-        </TouchableOpacity>
+        </Pressable>
         </View>
          );
         }

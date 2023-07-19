@@ -36,7 +36,8 @@ function InputRow({ label, value, onChange, ...textInputProps }) {
   );
 }
 
-export default function LoginPage({ navigation }) {
+export default function CreateRecordPage({ navigation, route }) {
+  const { item } = route.params;
   const [doctorName, changeDoctorName] = useState();
   const [patientName, changePatientName] = useState();
   const [diagnosis, changeDiagnosis] = useState();
@@ -48,17 +49,18 @@ export default function LoginPage({ navigation }) {
   const [errMsg, changeErrMsg] = useState("");
   const [role, setRole] = useState();
   const [doctor, setDoctor] = useState();
+  console.log("Hahaha", item);
 
   useEffect(() => {
     AsyncStorageManager.get("role").then((res) => setRole(res));
 
-    AsyncStorageManager.get("doctorName").then((res) => setRole(res));
+    // AsyncStorageManager.get("clinicName").then((res) => changeDoctorName(res));
   }, []);
 
   function clearInput() {
     changeDiagnosis();
     changeFee();
-    changeDoctorName();
+    // changeDoctorName();
     changePatientName();
     changeFollowup(false);
     changeErrMsg();
@@ -68,9 +70,9 @@ export default function LoginPage({ navigation }) {
   }
 
   function submitAction() {
-    if (!doctorName) {
+    if (!item.doctorName) {
       changeErrMsg("please enter doctor name");
-    } else if (!patientName) {
+    } else if (!item.patientName) {
       changeErrMsg("please enter patient name");
     } else if (!diagnosis) {
       changeErrMsg("please enter diagnosis");
@@ -85,8 +87,9 @@ export default function LoginPage({ navigation }) {
     } else {
       changeErrMsg("");
       RestApiManager.createConsultationRecord(
-        doctorName,
-        patientName,
+        item.id,
+        item.doctorName,
+        item.patientName,
         diagnosis,
         medication,
         fee,
@@ -100,7 +103,10 @@ export default function LoginPage({ navigation }) {
               [
                 {
                   text: "ok",
-                  onPress: () => clearInput(),
+                  onPress: () => {
+                    clearInput(),
+                    navigation.navigate("ConsultationListingPage")
+                  },
                   style: "cancel",
                 },
               ],
@@ -129,16 +135,42 @@ export default function LoginPage({ navigation }) {
         >
           Create Consultation Record
         </Text>
-        <InputRow
+        {/* <InputRow
+          // style={{
+          //   fontSize: 20,
+          //   color: "white",
+          //   marginBottom: 30,
+          //   textAlign: "center",
+          // }}
           label="Doctor"
           value={doctorName}
           onChange={changeDoctorName}
-        />
-        <InputRow
+        /> */}
+        <Text
+          style={{
+            fontSize: 20,
+            color: "white",
+            marginBottom: 30,
+            textAlign: "center",
+          }}
+        >
+          Doctor: {item.doctorName}{" "}
+        </Text>
+        {/* <InputRow
           label="Patient"
           value={patientName}
           onChange={changePatientName}
-        />
+        /> */}
+        <Text
+          style={{
+            fontSize: 20,
+            color: "white",
+            marginBottom: 30,
+            textAlign: "center",
+          }}
+        >
+           Bird Owner: {item.patientName}{" "}
+        </Text>
         <InputRow
           label="Diagnosis"
           value={diagnosis}

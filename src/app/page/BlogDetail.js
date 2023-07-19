@@ -19,24 +19,20 @@ export default function BlogDetail({ route }) {
   const [feedback, setFeedback] = useState("");
   const navigation = useNavigation();
   const [role, setRole] = useState();
-
   useEffect(() => {
     AsyncStorageManager.get("role").then((res) => {
       setRole(res);
     });
   }, []);
-
   const submitFeedback = () => {
     // Perform the feedback submission logic here
     console.log("Feedback submitted:", feedback);
     setModalVisible(false);
   };
-
   const clearFeedback = () => {
     setFeedback("");
     setModalVisible(false);
   };
-
   const handleBackButton = () => {
     navigation.goBack();
   };
@@ -60,7 +56,7 @@ export default function BlogDetail({ route }) {
             <Text style={styles.content}>{item.description}</Text>
           </View>
           <View style={styles.row}>
-            <Text style={styles.author}>{item.doctorName}</Text>
+            <Text style={styles.author}>By: {item.doctorName}</Text>
           </View>
         </View>
         {role === "Patient" && (
@@ -114,7 +110,6 @@ export default function BlogDetail({ route }) {
     </SafeAreaView>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -57,11 +57,20 @@ const RestApiManager = {
         , generateRequestDetails('GET', token)), callback
     )
   },
-  async createConsultationRecord(DoctorName, PatientName, Diagnosis, Medication, ConsultationFee, Time, FollowUp, callback) {
+
+  async getRecordBy(AppointmentId, callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/consultation/appointment`
+        , generateRequestDetails('GET', token, {AppointmentId}, 'json')), callback
+    )
+  },
+
+  async createConsultationRecord(AppointmentId,DoctorName, PatientName, Diagnosis, Medication, ConsultationFee, Time, FollowUp, callback) {
     const token = await AsyncStorageManager.get('token')
     handleRestApiResoponse(
       fetch(`${config.apiEndpoint}/consultation/create`, generateRequestDetails('PUT', token,
-        { DoctorName, PatientName, Diagnosis, Medication, ConsultationFee, Time, FollowUp }, 'json')), callback
+        {AppointmentId, DoctorName, PatientName, Diagnosis, Medication, ConsultationFee, Time, FollowUp }, 'json')), callback
     )
   },
 
@@ -133,6 +142,21 @@ const RestApiManager = {
     handleRestApiResoponse(
       fetch(`${config.apiEndpoint}/blog`, generateRequestDetails('Delete', token, {id} , 'json')), callback
     )
+  },
+
+  //Feedback
+  async getFeedback(id, callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/feedback`, generateRequestDetails('GET', token, {id} , 'json')), callback
+    )
+  },
+
+  async postFeedback( message ,callback) {
+    const token = await AsyncStorageManager.get('token')
+    handleRestApiResoponse(
+      fetch(`${config.apiEndpoint}/feedback`, generateRequestDetails('POST', token, {message} , 'json')), callback
+    ) 
   }
 }
 
