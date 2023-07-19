@@ -65,11 +65,8 @@ export default function BlogDetail({ route }) {
         </View>
         {role === "Patient" && (
           <TouchableOpacity
-            style={styles.addButton}
             onPress={() => setModalVisible(true)}
-          >
-            <Text style={styles.plusSign}>+</Text>
-          </TouchableOpacity>
+          ></TouchableOpacity>
         )}
         <Modal
           animationType="slide"
@@ -106,6 +103,14 @@ export default function BlogDetail({ route }) {
           </View>
         </Modal>
       </ScrollView>
+      {role === "Patient" && (
+        <TouchableOpacity
+          style={styles.floatingAddButton}
+          onPress={() => setModalVisible(true)}
+        >
+          <Text style={styles.plusSign}>+</Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   );
 }
@@ -208,5 +213,16 @@ const styles = StyleSheet.create({
   author: {
     fontSize: 22,
     fontWeight: "bold",
+  },
+  floatingAddButton: {
+    position: "absolute",
+    bottom: 20,
+    right: 20,
+    width: 60,
+    height: 60,
+    borderRadius: 30,
+    backgroundColor: "#0066FF",
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
