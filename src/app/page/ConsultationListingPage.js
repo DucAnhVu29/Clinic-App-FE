@@ -94,7 +94,7 @@ export default function LoginPage({ navigation }) {
         {CommonTool.praseTime(item.time, "DD/MM/YYYY HH:mm")}{" "}
       </Text>
       <Text style={{ fontSize: 18 }}>
-        Doctor {item.doctorName} gave consultation to {item.patientName}
+        {item.doctorName} gave consultation to {item.patientName}
       </Text>
     </TouchableOpacity>
      );

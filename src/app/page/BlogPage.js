@@ -207,6 +207,7 @@ export const BlogPage = ({ navigation }) => {
         onPress={() => {
           setEnlargeIndex(idx);
           setEnlargeViewVisible(true);
+          navigation.navigate("BlogDetail", {item : item})
         }}
       >
         {/* <Text style={{ fontSize: 16 }}>
@@ -214,8 +215,13 @@ export const BlogPage = ({ navigation }) => {
         </Text> */}
         <Text style={{ fontSize: 30 }}>{item.title}</Text>
         <Text style={{ fontSize: 18 }}>By: {item.doctorName}</Text>
+        {/* <Text style={{ fontSize: 18 }}>By: {item.doctorId}</Text>
+        <Text style={{ fontSize: 18 }}>By: {id}</Text> */}
 
-        {role === "Doctor" && (
+        {
+          role === "Doctor" &&
+        //  id === item.doctorId &&
+         (
           <View style={styles1.fixToText}>
             <Button title="Update" onPress={() => handleUpdate(item.id)}>
               {" "}
